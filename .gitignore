@@ -1,0 +1,19 @@
+# Node backend
+devlogic-chat-backend/node_modules/
+devlogic-chat-backend/.env
+devlogic-chat-backend/.env.*
+
+# Log files
+*.log
+
+# Sistema (Windows / IDE)
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Se algum dia tiver build do frontend
+Devlogic/dist/
+Devlogic/node_modules/
+Devlogic/.env
+Devlogic/.env.*
