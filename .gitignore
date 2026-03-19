@@ -19,3 +19,6 @@ Devlogic/.env
 Devlogic/.env.*
 
 .env
+
+.env
+**/.env
