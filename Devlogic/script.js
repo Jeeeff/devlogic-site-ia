@@ -247,6 +247,56 @@ document.querySelectorAll('.service-card, .tech-item, .project-card').forEach(el
     observer.observe(el);
 });
 
+// --- Animação de revelação no scroll ---
+const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('revealed');
+        }
+    });
+}, observerOptions);
+
+document.querySelectorAll('.service-card, .tech-item, .project-card, .stat-item').forEach((el) => {
+    el.classList.add('reveal');
+    observer.observe(el);
+});
+
+// --- Animação dos números de estatísticas ---
+const statsObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+            const statNumbers = entry.target.querySelectorAll('.stat-number');
+            statNumbers.forEach((stat) => {
+                const target = stat.textContent;
+                const isPlus = target.includes('+');
+                const isSlash = target.includes('/');
+                const numStr = target.replace(/\D/g, '');
+                const num = parseInt(numStr) || 0;
+                
+                if (num > 0 && !isSlash) {
+                    let current = 0;
+                    const increment = Math.ceil(num / 50);
+                    const timer = setInterval(() => {
+                        current += increment;
+                        if (current >= num) {
+                            current = num;
+                            clearInterval(timer);
+                        }
+                        stat.textContent = current + (isPlus ? '+' : '');
+                    }, 30);
+                }
+            });
+            statsObserver.unobserve(entry.target);
+        }
+    });
+}, { threshold: 0.5 });
+
+const statsSection = document.querySelector('.stats-grid');
+if (statsSection) {
+    statsObserver.observe(statsSection);
+}
+
 // --- Atualiza links do WhatsApp ---
 document.querySelectorAll('a[href*="wa.me"]').forEach(link => {
     link.href = `https://wa.me/${WHATSAPP_NUMBER}`;
