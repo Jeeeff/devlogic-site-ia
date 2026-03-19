@@ -17,3 +17,5 @@ Devlogic/dist/
 Devlogic/node_modules/
 Devlogic/.env
 Devlogic/.env.*
+
+.env

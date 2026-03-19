@@ -77,9 +77,9 @@ app.post('/api/chat', async (req, res) => {
                     content: message,
                 },
             ],
-            model: 'llama3-70b-8192', // Modelo Groq recomendado
+            model: 'llama-3.3-70b-versatile', // Modelo Groq recomendado
             temperature: 0.7,
-            max_tokens: 1024,
+            max_completion_tokens: 1024,
             top_p: 1,
             stop: null,
             stream: false,
@@ -98,16 +98,17 @@ app.post('/api/chat', async (req, res) => {
     }
 });
 
-// --- Servir arquivos estáticos do frontend (para desenvolvimento local ou se frontend e backend estiverem no mesmo servidor) ---
-// Em produção com Nginx, o Nginx serve o frontend diretamente.
-// Esta parte é mais para testar o backend e frontend juntos localmente.
-app.use(express.static(path.join(__dirname, '../Devlogic'))); // Serve a pasta Devlogic como estática
-
-// Rota para o index.html
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '../Devlogic', 'index.html'));
+    res.json({
+        ok: true,
+        service: 'devlogic-chat-backend',
+        message: 'Backend rodando normalmente'
+    });
 });
 
+app.get('/healthz', (req, res) => {
+    res.status(200).json({ ok: true });
+});
 
 // --- Iniciar o Servidor ---
 app.listen(PORT, () => {

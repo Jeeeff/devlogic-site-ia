@@ -16,7 +16,8 @@
     "axios": "^1.13.3",
     "cors": "^2.8.6",
     "dotenv": "^16.6.1",
-    "express": "^4.22.1"
+    "express": "^4.22.1",
+    "groq-sdk": "^1.1.1"
   },
   "devDependencies": {
     "nodemon": "^3.0.1"
